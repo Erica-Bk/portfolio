@@ -6,7 +6,7 @@
 <title>portfolio — erica</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
     :root{
@@ -21,14 +21,14 @@
     *{
         box-sizing:border-box;
         cursor: url('../../assets/icons/moon-fish.png') 16 16, auto !important;
-        font-family: 'BIZ UDGothic', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        font-family: 'M PLUS Rounded 1c', 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
     html, body{
         margin:0;
         min-height:100vh;
         width:100%;
-        font-family: 'BIZ UDGothic', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        font-family: 'M PLUS Rounded 1c', 'Segoe UI', system-ui, -apple-system, sans-serif;
         position:relative;
         background:#ffffff;
         overflow-x:hidden;
@@ -417,18 +417,22 @@
             width:94%;
             padding:36px 0;
         }
+        .projects-display{
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
         .projects-tag{
-            font-size:11px;
-            padding:6px 12px;
+            font-size:10px;
+            padding:5px 10px;
         }
         .projects-info{
-            font-size:13px;
-            padding:12px;
-            gap:6px;
+            font-size:12px;
+            padding:10px;
+            gap:5px;
         }
         .projects-info div[style*="display: flex"] > div{
-            font-size:11px !important;
-            padding:4px 8px !important;
+            font-size:10px !important;
+            padding:3px 7px !important;
         }
         .timeline-row{
             gap:14px;
@@ -442,9 +446,6 @@
     @media (max-width: 420px){
         .portfolio-nav{
             gap:16px;
-        }
-        .projects-display{
-            grid-template-columns: 1fr;
         }
         .skills-panel{
             grid-template-columns: repeat(2, 1fr);

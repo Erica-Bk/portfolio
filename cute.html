@@ -6,7 +6,7 @@
 <title>portfolio — erica</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
     :root{
@@ -21,14 +21,14 @@
     *{
         box-sizing:border-box;
         cursor: url('../../assets/icons/moon-fish.png') 16 16, auto !important;
-        font-family: 'BIZ UDGothic', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        font-family: 'M PLUS Rounded 1c', 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
     html, body{
         margin:0;
         min-height:100vh;
         width:100%;
-        font-family: 'BIZ UDGothic', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        font-family: 'M PLUS Rounded 1c', 'Segoe UI', system-ui, -apple-system, sans-serif;
         position:relative;
         background:#ffffff;
         overflow-x:hidden;
@@ -136,10 +136,8 @@
         min-width:0;
     }
 
-    .projects-display.expanded{
-        grid-template-columns: repeat(3, 1fr);
-    }
-
+    /* ---- FIXED: card is now a column flex container so the image
+       fills all remaining space instead of leaving a dead gap ---- */
     .projects-display-images{
         background-color: #AC91EB;
         width: 100%;
@@ -156,6 +154,8 @@
         flex-direction: column;
     }
 
+    /* ---- FIXED: image now flexes to fill the card, no more fixed
+       300px that left an empty strip below it ---- */
     .projects-image {
         background-color: #AC91EB;
         width: 100%;
@@ -163,7 +163,6 @@
         min-height: 0;
         position: relative;
         overflow: hidden;
-        cursor: pointer;
     }
 
     .projects-image img{
@@ -175,35 +174,12 @@
         top: 0;
         left: 0;
         z-index: 1;
-        transition: transform 0.3s ease;
     }
 
-    .projects-image:hover img{
-        transform: scale(1.05);
-    }
-
-    .projects-image::after{
-        content: "voir plus";
-        position:absolute;
-        inset:0;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        background: rgba(33,25,52,0.55);
-        color:#FAF7FF;
-        font-size:13px;
-        font-weight:600;
-        letter-spacing:0.4px;
-        opacity:0;
-        transition: opacity 0.2s ease;
-        z-index:3;
-        pointer-events:none;
-    }
-
-    .projects-image:hover::after{
-        opacity:1;
-    }
-
+    /* ---- FIXED: was the same color as the card background (#AC91EB),
+       so the tag was invisible. Also had a fixed 100px width that
+       clipped longer labels like "développement". Now it's the
+       accent violet, sized to its text, with a real font-size. ---- */
     .projects-tag {
         background-color: var(--violet);
         width: auto;
@@ -225,6 +201,11 @@
         z-index: 2;
     }
 
+    /* ---- FIXED: was `display:flex` in row direction with a fixed
+       90px height, so the title and the tech pills got squeezed onto
+       one cramped line and overflowed. Also same background color
+       as the card, so it had no contrast. Now it's a column, auto
+       height, and a dark translucent bar that reads over any image. ---- */
     .projects-info {
         background-color: rgba(33, 25, 52, 0.82);
         backdrop-filter: blur(2px);
@@ -242,7 +223,6 @@
         padding: 14px 16px;
         font-size: 14px;
         font-weight: 600;
-        pointer-events: none;
     }
 
     .projects-info p{
@@ -407,144 +387,11 @@
         object-fit:contain;
     }
 
-    /* ================= GALLERY MODAL ================= */
-
-    .gallery-modal{
-        position:fixed;
-        inset:0;
-        background: rgba(33,25,52,0.92);
-        backdrop-filter: blur(6px);
-        z-index:1000;
-        display:none;
-        align-items:center;
-        justify-content:center;
-        padding:40px 20px;
-    }
-
-    .gallery-modal.active{
-        display:flex;
-    }
-
-    .gallery-modal-content{
-        position:relative;
-        width:100%;
-        max-width:1600px;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        gap:20px;
-    }
-
-    .gallery-close{
-        position:absolute;
-        top:-46px;
-        right:0;
-        background:none;
-        border:none;
-        color:#FAF7FF;
-        font-size:32px;
-        line-height:1;
-        cursor:pointer;
-        padding:4px 8px;
-    }
-
-    .gallery-title{
-        color:#FAF7FF;
-        font-family:'Fraunces', serif;
-        font-size:clamp(18px, 3vw, 26px);
-        text-align:center;
-        margin:0;
-    }
-
-    .gallery-stage{
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        gap:16px;
-        width:100%;
-    }
-
-    .gallery-arrow{
-        background: var(--violet);
-        color:#FAF7FF;
-        border:none;
-        width:44px;
-        height:44px;
-        min-width:44px;
-        border-radius:50%;
-        font-size:20px;
-        cursor:pointer;
-        transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-
-    .gallery-arrow:hover:not(:disabled){
-        transform: scale(1.08);
-    }
-
-    .gallery-arrow:disabled{
-        opacity:0.25;
-        cursor:default;
-    }
-
-    .gallery-image-wrap{
-        flex:1;
-        min-width:0;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        max-height:80vh;
-    }
-
-    .gallery-image-wrap img{
-        max-width:80vw;
-        max-height:80vh;
-        border-radius:10px;
-        box-shadow: var(--paper-shadow);
-        object-fit:contain;
-    }
-
-    .gallery-counter{
-        color:#FAF7FF;
-        font-size:13px;
-        font-weight:600;
-        letter-spacing:0.4px;
-        opacity:0.85;
-    }
-
-    .gallery-thumbs{
-        display:flex;
-        gap:10px;
-        flex-wrap:wrap;
-        justify-content:center;
-        max-width:100%;
-    }
-
-    .gallery-thumb{
-        width:56px;
-        height:56px;
-        border-radius:6px;
-        overflow:hidden;
-        cursor:pointer;
-        opacity:0.5;
-        border:2px solid transparent;
-        transition: opacity 0.2s ease, border-color 0.2s ease;
-        flex-shrink:0;
-    }
-
-    .gallery-thumb.active{
-        opacity:1;
-        border-color:#FAF7FF;
-    }
-
-    .gallery-thumb img{
-        width:100%;
-        height:100%;
-        object-fit:cover;
-        display:block;
-    }
-
     /* ================= RESPONSIVE ================= */
 
+    /* Tablet and below: the 750px fixed panel height was built for
+       desktop hero framing. Below ~900px it either clips content or
+       leaves a lot of dead space, so let panels size to their content. */
     @media (max-width: 900px){
         .panel{
             height:auto;
@@ -562,9 +409,6 @@
         #projets{
             padding:48px 0;
         }
-        .projects-display.expanded{
-            grid-template-columns: repeat(2, 1fr);
-        }
     }
 
     /* Small tablets / large phones */
@@ -573,33 +417,28 @@
             width:94%;
             padding:36px 0;
         }
+        .projects-display{
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
         .projects-tag{
-            font-size:11px;
-            padding:6px 12px;
+            font-size:10px;
+            padding:5px 10px;
         }
         .projects-info{
-            font-size:13px;
-            padding:12px;
-            gap:6px;
+            font-size:12px;
+            padding:10px;
+            gap:5px;
         }
         .projects-info div[style*="display: flex"] > div{
-            font-size:11px !important;
-            padding:4px 8px !important;
+            font-size:10px !important;
+            padding:3px 7px !important;
         }
         .timeline-row{
             gap:14px;
         }
         .skills-panel{
             gap:14px 20px;
-        }
-        .gallery-stage{
-            gap:8px;
-        }
-        .gallery-arrow{
-            width:36px;
-            height:36px;
-            min-width:36px;
-            font-size:16px;
         }
     }
 
@@ -608,36 +447,12 @@
         .portfolio-nav{
             gap:16px;
         }
-        .projects-display{
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-        .projects-display.expanded{
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .projects-tag{
-            font-size:10px;
-            padding:5px 10px;
-        }
-        .projects-info{
-            font-size:11px;
-            padding:8px;
-            gap:4px;
-        }
-        .projects-info div[style*="display: flex"] > div{
-            font-size:9px !important;
-            padding:3px 6px !important;
-        }
         .skills-panel{
             grid-template-columns: repeat(2, 1fr);
         }
         .skill-icon{
             width:40px;
             height:40px;
-        }
-        .gallery-thumb{
-            width:44px;
-            height:44px;
         }
     }
 </style>
@@ -673,11 +488,11 @@
                     <div onclick="filterProjects('web')">Développement</div>
                 </div>
             </div>
-            <div class="projects-display" id="projectsDisplay">
-                <div class="projects-display-images" data-category="web" data-images="images/pointage-2.png,images/pointage-3.png,images/pointage-4.png,images/pointage-5.png">
+            <div class="projects-display">
+                <div class="projects-display-images" data-category="web">
                     <div class="projects-tag">développement</div>
-                    <div class="projects-image" onclick="openGallery(this)">
-                        <img src="images/pointage-1.png" alt="">
+                    <div class="projects-image">
+                        <img src="stat.png" alt="">
                     </div>
                     <div class="projects-info">
                         <span><strong>Site de gestion de salaire par pointage</strong></span>
@@ -694,10 +509,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="uiux" data-images="images/cinema-2.png,images/cinema-3.png,images/cinema-4.png,images/cinema-5.png">
+                <div class="projects-display-images" data-category="uiux">
                     <div class="projects-tag">ui/ux</div>
-                    <div class="projects-image" onclick="openGallery(this)">
-                        <img src="images/cinema-1.png" alt="">
+                    <div class="projects-image">
+                        <img src="des.PNG" alt="">
                     </div>
                     <div class="projects-info">
                         <span><strong>Design d'application de cinema</strong></span>
@@ -711,10 +526,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="web" data-images="images/aigle-1.png,images/aigle-2.png,images/aigle-3.png,images/aigle-4.png">
+                <div class="projects-display-images" data-category="web">
                     <div class="projects-tag">développement</div>
-                    <div class="projects-image" onclick="openGallery(this)">
-                        <img src="images/aigle-1.png" alt="">
+                    <div class="projects-image">
+                        <img src="aigl.png" alt="">
                     </div>
                     <div class="projects-info">
                         <span><strong>Site de gestion et creation de produit</strong></span>
@@ -728,10 +543,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="branding" data-images="images/chat-1.png,images/chat-2.png,images/chat-3.png,images/chat-4.png">
+                <div class="projects-display-images" data-category="branding">
                     <div class="projects-tag">design</div>
-                    <div class="projects-image" onclick="openGallery(this)">
-                        <img src="images/chat-3.png" alt="">
+                    <div class="projects-image">
+                        <img src="chat-5.PNG" alt="">
                     </div>
                     <div class="projects-info">
                         <span><strong>CHA-T - Marque de salon de thé</strong></span>
@@ -748,10 +563,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="uiux" data-images="images/musique-2.png,images/musique-3.png,images/musique-4.png,images/musique-5.png,images/musique-6.png">
+                <div class="projects-display-images" data-category="uiux">
                     <div class="projects-tag">ui/ux</div>
-                    <div class="projects-image" onclick="openGallery(this)">
-                        <img src="images/musique-1.png" alt="">
+                    <div class="projects-image">
+                        <img src="polyphia-1.png" alt="">
                     </div>
                     <div class="projects-info">
                         <span><strong>Design d'application de musique</strong></span>
@@ -765,10 +580,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="uiux" data-images="images/boulangerie-2.png,images/boulangerie-3.png,images/boulangerie-4.png,images/boulangerie-5.png">
+                <div class="projects-display-images" data-category="uiux">
                     <div class="projects-tag">ui/ux</div>
-                    <div class="projects-image" onclick="openGallery(this)">
-                        <img src="images/boulangerie-1.png" alt="">
+                    <div class="projects-image">
+                        <img src="bread.png" alt="">
                     </div>
                     <div class="projects-info">
                         <span><strong>Design de boulangerie en ligne</strong></span>
@@ -779,10 +594,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="web" data-images="images/zebu-1.png">
+                <div class="projects-display-images" data-category="web">
                     <div class="projects-tag">développement</div>
-                    <div class="projects-image" onclick="openGallery(this)">
-                        <img src="images/zebu-1.png" alt="">
+                    <div class="projects-image">
+                        <img src="game.png" alt="">
                     </div>
                     <div class="projects-info">
                         <span><strong>Jeux de vole de zebu</strong></span>
@@ -796,10 +611,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="branding" data-images="images/evasion-2.jpg,images/evasion-3.jpg,images/evasion-4.jpg,images/evasion-5.jpg,images/evasion-6.jpg,images/evasion-7.jpg">
+                <div class="projects-display-images" data-category="branding">
                     <div class="projects-tag">design</div>
-                    <div class="projects-image" onclick="openGallery(this)">
-                        <img src="images/evasion-1.png" alt="">
+                    <div class="projects-image">
+                        <img src="mag.png" alt="">
                     </div>
                     <div class="projects-info">
                         <span><strong>EVASION - Magasive d'exploration a Isalo</strong></span>
@@ -996,28 +811,11 @@
         </div>
     </section>
 
-    <!-- ================= GALLERY MODAL ================= -->
-    <div class="gallery-modal" id="galleryModal">
-        <div class="gallery-modal-content">
-            <button class="gallery-close" onclick="closeGallery()" aria-label="Fermer">&times;</button>
-            <div class="gallery-stage">
-                <button class="gallery-arrow" id="galleryPrev" onclick="prevGalleryImage()" aria-label="Image précédente">&#10094;</button>
-                <div class="gallery-image-wrap">
-                    <img id="galleryMainImage" src="" alt="">
-                </div>
-                <button class="gallery-arrow" id="galleryNext" onclick="nextGalleryImage()" aria-label="Image suivante">&#10095;</button>
-            </div>
-            <div class="gallery-counter" id="galleryCounter"></div>
-            <div class="gallery-thumbs" id="galleryThumbs"></div>
-        </div>
-    </div>
-
     <script>
     let currentCategory = 'all';
     let expanded = false;
 
     function applyProjectsDisplay() {
-        const grid = document.getElementById('projectsDisplay');
         const cards = Array.from(document.querySelectorAll('.projects-display-images'));
         const matching = cards.filter(card => currentCategory === 'all' || card.dataset.category === currentCategory);
 
@@ -1025,8 +823,6 @@
 
         const toShow = expanded ? matching : matching.slice(0, 3);
         toShow.forEach(card => { card.style.display = 'flex'; });
-
-        grid.classList.toggle('expanded', expanded);
 
         const btn = document.getElementById('showMoreBtn');
         if (matching.length > 3) {
@@ -1079,81 +875,6 @@
             t.classList.toggle('active', t.getAttribute('onclick').includes(`'${name}'`));
         });
     }
-
-    /* ================= GALLERY LOGIC ================= */
-    let galleryImages = [];
-    let galleryIndex = 0;
-
-    function openGallery(imageDiv){
-        const card = imageDiv.closest('.projects-display-images');
-        const imagesAttr = card.dataset.images || imageDiv.querySelector('img').getAttribute('src');
-        galleryImages = imagesAttr.split(',').map(s => s.trim()).filter(Boolean);
-        galleryIndex = 0;
-
-        renderGallery();
-        document.getElementById('galleryModal').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeGallery(){
-        document.getElementById('galleryModal').classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    function nextGalleryImage(){
-        if (galleryIndex < galleryImages.length - 1){
-            galleryIndex++;
-            renderGallery();
-        }
-    }
-
-    function prevGalleryImage(){
-        if (galleryIndex > 0){
-            galleryIndex--;
-            renderGallery();
-        }
-    }
-
-    function goToGalleryImage(i){
-        galleryIndex = i;
-        renderGallery();
-    }
-
-    function renderGallery(){
-        document.getElementById('galleryMainImage').src = galleryImages[galleryIndex];
-        document.getElementById('galleryCounter').textContent = galleryImages.length > 1
-            ? `${galleryIndex + 1} / ${galleryImages.length}`
-            : '';
-
-        document.getElementById('galleryPrev').disabled = galleryIndex === 0;
-        document.getElementById('galleryNext').disabled = galleryIndex === galleryImages.length - 1;
-        document.getElementById('galleryPrev').style.display = galleryImages.length > 1 ? 'inline-flex' : 'none';
-        document.getElementById('galleryNext').style.display = galleryImages.length > 1 ? 'inline-flex' : 'none';
-
-        const thumbsContainer = document.getElementById('galleryThumbs');
-        thumbsContainer.innerHTML = '';
-        if (galleryImages.length > 1) {
-            galleryImages.forEach((src, i) => {
-                const thumb = document.createElement('div');
-                thumb.className = 'gallery-thumb' + (i === galleryIndex ? ' active' : '');
-                thumb.innerHTML = `<img src="${src}" alt="">`;
-                thumb.onclick = () => goToGalleryImage(i);
-                thumbsContainer.appendChild(thumb);
-            });
-        }
-    }
-
-    document.addEventListener('keydown', (e) => {
-        const modal = document.getElementById('galleryModal');
-        if (!modal.classList.contains('active')) return;
-        if (e.key === 'Escape') closeGallery();
-        if (e.key === 'ArrowRight') nextGalleryImage();
-        if (e.key === 'ArrowLeft') prevGalleryImage();
-    });
-
-    document.getElementById('galleryModal').addEventListener('click', (e) => {
-        if (e.target.id === 'galleryModal') closeGallery();
-    });
     </script>
   
 </body>

@@ -6,7 +6,7 @@
 <title>portfolio — erica</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
     :root{
@@ -21,14 +21,14 @@
     *{
         box-sizing:border-box;
         cursor: url('../../assets/icons/moon-fish.png') 16 16, auto !important;
-        font-family: 'M PLUS Rounded 1c', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        font-family: 'BIZ UDGothic', 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
     html, body{
         margin:0;
         min-height:100vh;
         width:100%;
-        font-family: 'M PLUS Rounded 1c', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        font-family: 'BIZ UDGothic', 'Segoe UI', system-ui, -apple-system, sans-serif;
         position:relative;
         background:#ffffff;
         overflow-x:hidden;
@@ -136,8 +136,6 @@
         min-width:0;
     }
 
-    /* ---- FIXED: card is now a column flex container so the image
-       fills all remaining space instead of leaving a dead gap ---- */
     .projects-display-images{
         background-color: #AC91EB;
         width: 100%;
@@ -154,8 +152,6 @@
         flex-direction: column;
     }
 
-    /* ---- FIXED: image now flexes to fill the card, no more fixed
-       300px that left an empty strip below it ---- */
     .projects-image {
         background-color: #AC91EB;
         width: 100%;
@@ -176,10 +172,6 @@
         z-index: 1;
     }
 
-    /* ---- FIXED: was the same color as the card background (#AC91EB),
-       so the tag was invisible. Also had a fixed 100px width that
-       clipped longer labels like "développement". Now it's the
-       accent violet, sized to its text, with a real font-size. ---- */
     .projects-tag {
         background-color: var(--violet);
         width: auto;
@@ -201,11 +193,6 @@
         z-index: 2;
     }
 
-    /* ---- FIXED: was `display:flex` in row direction with a fixed
-       90px height, so the title and the tech pills got squeezed onto
-       one cramped line and overflowed. Also same background color
-       as the card, so it had no contrast. Now it's a column, auto
-       height, and a dark translucent bar that reads over any image. ---- */
     .projects-info {
         background-color: rgba(33, 25, 52, 0.82);
         backdrop-filter: blur(2px);
@@ -389,9 +376,6 @@
 
     /* ================= RESPONSIVE ================= */
 
-    /* Tablet and below: the 750px fixed panel height was built for
-       desktop hero framing. Below ~900px it either clips content or
-       leaves a lot of dead space, so let panels size to their content. */
     @media (max-width: 900px){
         .panel{
             height:auto;
@@ -417,22 +401,18 @@
             width:94%;
             padding:36px 0;
         }
-        .projects-display{
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-        }
         .projects-tag{
-            font-size:10px;
-            padding:5px 10px;
+            font-size:11px;
+            padding:6px 12px;
         }
         .projects-info{
-            font-size:12px;
-            padding:10px;
-            gap:5px;
+            font-size:13px;
+            padding:12px;
+            gap:6px;
         }
         .projects-info div[style*="display: flex"] > div{
-            font-size:10px !important;
-            padding:3px 7px !important;
+            font-size:11px !important;
+            padding:4px 8px !important;
         }
         .timeline-row{
             gap:14px;
@@ -446,6 +426,23 @@
     @media (max-width: 420px){
         .portfolio-nav{
             gap:16px;
+        }
+        .projects-display{
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .projects-tag{
+            font-size:10px;
+            padding:5px 10px;
+        }
+        .projects-info{
+            font-size:11px;
+            padding:8px;
+            gap:4px;
+        }
+        .projects-info div[style*="display: flex"] > div{
+            font-size:9px !important;
+            padding:3px 6px !important;
         }
         .skills-panel{
             grid-template-columns: repeat(2, 1fr);

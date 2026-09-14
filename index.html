@@ -79,20 +79,22 @@
 
     .portfolio-title{    
         font-family:'Fraunces', serif;
-        font-size:120px;
+        font-size:clamp(44px, 11vw, 120px);
         line-height:1;
         margin:0;
     }
 
     .portfolio-name{
-        font-size:24px;
+        font-size:clamp(13px, 2.2vw, 24px);
         letter-spacing:2px;
         margin-top:10px;
     }
 
     .portfolio-nav{
         display:flex;
-        gap:100px;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:clamp(20px, 6vw, 100px);
     }
 
     #projets{
@@ -115,34 +117,48 @@
 
     .projects-filters{
         display:flex;
-        gap:40px;
+        flex-wrap:wrap;
+        gap:clamp(16px, 4vw, 40px);
         cursor:pointer;
         align-items: center;
         justify-content: center;
         font-weight:600;
+        text-align:center;
     }
 
     .projects-display{
         display: grid;
-        grid-template-columns: repeat(3, 400px);
-        gap: 50px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: clamp(24px, 4vw, 50px);
         justify-content: center;
+        width:100%;
+        max-width:1300px;
     }
 
+    /* ---- FIXED: card is now a column flex container so the image
+       fills all remaining space instead of leaving a dead gap ---- */
     .projects-display-images{
-        background-color: #AC91EB; 
-        width: 400px; 
-        height: 400px; 
-        border-radius: 5px;
+        background-color: #AC91EB;
+        width: 100%;
+        max-width: 400px;
+        aspect-ratio: 1 / 1;
+        height: auto;
+        margin: 0 auto;
+        border-radius: 8px;
         position: relative;
         overflow: hidden;
         box-shadow: 0 10px 25px -8px #8168D2;
+        display: flex;
+        flex-direction: column;
     }
 
+    /* ---- FIXED: image now flexes to fill the card, no more fixed
+       300px that left an empty strip below it ---- */
     .projects-image {
-        background-color: #AC91EB; 
-        width: 400px; 
-        height: 300px;
+        background-color: #AC91EB;
+        width: 100%;
+        flex: 1;
+        min-height: 0;
         position: relative;
         overflow: hidden;
     }
@@ -158,38 +174,52 @@
         z-index: 1;
     }
 
+    /* ---- FIXED: was the same color as the card background (#AC91EB),
+       so the tag was invisible. Also had a fixed 100px width that
+       clipped longer labels like "développement". Now it's the
+       accent violet, sized to its text, with a real font-size. ---- */
     .projects-tag {
-        background-color: #AC91EB; 
-        width: 100px; 
-        height: 30px; 
+        background-color: var(--violet);
+        width: auto;
+        max-width: calc(100% - 20px);
+        padding: 8px 16px;
         margin-top: 0;
-        border-radius: 0px 5px 5px 0px; 
+        border-radius: 0 6px 6px 0;
         color: #FAF7FF;
-        position: absolute; 
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: absolute;
         top: 20px;
         left: 0;
         z-index: 2;
-        display: flex;
-        align-items: center;
-        justify-content: left;
-        padding: 10px;
     }
 
+    /* ---- FIXED: was `display:flex` in row direction with a fixed
+       90px height, so the title and the tech pills got squeezed onto
+       one cramped line and overflowed. Also same background color
+       as the card, so it had no contrast. Now it's a column, auto
+       height, and a dark translucent bar that reads over any image. ---- */
     .projects-info {
-        background-color: #AC91EB;
-        width: 100%; 
-        height: 90px; 
+        background-color: rgba(33, 25, 52, 0.82);
+        backdrop-filter: blur(2px);
+        width: 100%;
         color: #FAF7FF;
-        position: absolute; 
+        position: absolute;
         bottom: 0;
-        left: 0; 
+        left: 0;
         z-index: 2;
         display: flex;
-        align-items: center;
-        justify-content: left;
-        padding: 10px;
-        margin: 0; 
-        font-size: 14px; 
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 16px;
+        font-size: 14px;
         font-weight: 600;
     }
 
@@ -240,7 +270,7 @@
     .timeline{
         display:flex;
         flex-direction:column;
-        gap:100px;
+        gap:clamp(40px, 8vw, 100px);
         position:relative;
     }
 
@@ -294,9 +324,12 @@
 
     .skills-tabs{
         display:flex;
-        gap:40px;
+        flex-wrap:wrap;
+        gap:clamp(16px, 4vw, 40px);
         cursor:pointer;
         font-weight:600;
+        justify-content:center;
+        text-align:center;
     }
 
     .skills-tab{
@@ -351,6 +384,74 @@
         height:100%;
         object-fit:contain;
     }
+
+    /* ================= RESPONSIVE ================= */
+
+    /* Tablet and below: the 750px fixed panel height was built for
+       desktop hero framing. Below ~900px it either clips content or
+       leaves a lot of dead space, so let panels size to their content. */
+    @media (max-width: 900px){
+        .panel{
+            height:auto;
+            min-height:auto;
+            padding:48px 0;
+            gap:40px;
+        }
+        #projets .panel{
+            min-height:auto;
+        }
+        #info, #parcours, #competences{
+            min-height:auto;
+            padding:20px 0;
+        }
+        #projets{
+            padding:48px 0;
+        }
+    }
+
+    /* Small tablets / large phones */
+    @media (max-width: 640px){
+        .panel{
+            width:94%;
+            padding:36px 0;
+        }
+        .projects-tag{
+            font-size:11px;
+            padding:6px 12px;
+        }
+        .projects-info{
+            font-size:13px;
+            padding:12px;
+            gap:6px;
+        }
+        .projects-info div[style*="display: flex"] > div{
+            font-size:11px !important;
+            padding:4px 8px !important;
+        }
+        .timeline-row{
+            gap:14px;
+        }
+        .skills-panel{
+            gap:14px 20px;
+        }
+    }
+
+    /* Phones */
+    @media (max-width: 420px){
+        .portfolio-nav{
+            gap:16px;
+        }
+        .projects-display{
+            grid-template-columns: 1fr;
+        }
+        .skills-panel{
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .skill-icon{
+            width:40px;
+            height:40px;
+        }
+    }
 </style>
 </head>
 <body>
@@ -376,23 +477,33 @@
     <section id="projets">
         <div class="panel">
             <div>
-                <h1>Competences</h1>
+                <h1>Projets</h1>
                 <div class="projects-filters">
                     <div onclick="filterProjects('all')">All</div>
                     <div onclick="filterProjects('uiux')">UI/UX</div>
-                    <div onclick="filterProjects('branding')">Branding</div>
-                    <div onclick="filterProjects('web')">Web</div>
+                    <div onclick="filterProjects('branding')">Design</div>
+                    <div onclick="filterProjects('web')">Développement</div>
                 </div>
             </div>
             <div class="projects-display">
                 <div class="projects-display-images" data-category="web">
-                    <div class="projects-tag">web</div>
+                    <div class="projects-tag">développement</div>
                     <div class="projects-image">
                         <img src="stat.png" alt="">
                     </div>
                     <div class="projects-info">
-                        <span>ui/ux project</span>
-                        <p>informations</p>
+                        <span><strong>Site de gestion de salaire par pointage</strong></span>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                SpringBoot
+                            </div>
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                MySQL
+                            </div>
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                VueJS
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="projects-display-images" data-category="uiux">
@@ -401,28 +512,52 @@
                         <img src="des.PNG" alt="">
                     </div>
                     <div class="projects-info">
-                        <span>ui/ux project</span>
-                        <p>informations</p>
+                        <span><strong>Design d'application de cinema</strong></span>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                Adobe XD
+                            </div>
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                Illustrator
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="projects-display-images" data-category="web">
-                    <div class="projects-tag">web</div>
+                    <div class="projects-tag">développement</div>
                     <div class="projects-image">
                         <img src="aigl.png" alt="">
                     </div>
                     <div class="projects-info">
-                        <span>ui/ux project</span>
-                        <p>informations</p>
+                        <span><strong>Site de gestion et creation de produit</strong></span>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                MySQL
+                            </div>
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                PHP
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="projects-display-images" data-category="branding">
-                    <div class="projects-tag">branding</div>
+                    <div class="projects-tag">design</div>
                     <div class="projects-image">
                         <img src="chat-5.PNG" alt="">
                     </div>
                     <div class="projects-info">
-                        <span>ui/ux project</span>
-                        <p>informations</p>
+                        <span><strong>CHA-T - Marque de salon de thé</strong></span>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                Illustrator
+                            </div>
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                Photoshop
+                            </div>
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                Adobe XD
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="projects-display-images" data-category="uiux">
@@ -431,8 +566,15 @@
                         <img src="polyphia-1.png" alt="">
                     </div>
                     <div class="projects-info">
-                        <span>ui/ux project</span>
-                        <p>informations</p>
+                        <span><strong>Design d'application de musique</strong></span>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                Adobe XD
+                            </div>
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                Illustrator
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="projects-display-images" data-category="uiux">
@@ -441,18 +583,46 @@
                         <img src="bread.png" alt="">
                     </div>
                     <div class="projects-info">
-                        <span>ui/ux project</span>
-                        <p>informations</p>
+                        <span><strong>Design de boulangerie en ligne</strong></span>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                Wordpress
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="projects-display-images" data-category="web">
+                    <div class="projects-tag">développement</div>
+                    <div class="projects-image">
+                        <img src="game.png" alt="">
+                    </div>
+                    <div class="projects-info">
+                        <span><strong>Jeux de vole de zebu</strong></span>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                Godot
+                            </div>
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                Photoshop
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="projects-display-images" data-category="branding">
-                    <div class="projects-tag">branding</div>
+                    <div class="projects-tag">design</div>
                     <div class="projects-image">
                         <img src="mag.png" alt="">
                     </div>
                     <div class="projects-info">
-                        <span>ui/ux project</span>
-                        <p>informations</p>
+                        <span><strong>EVASION - Magasive d'exploration a Isalo</strong></span>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                Photoshop
+                            </div>
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                Indesign
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -500,7 +500,8 @@
         max-height:80vh;
     }
 
-    .gallery-image-wrap img{
+    .gallery-image-wrap img,
+    .gallery-image-wrap video{
         max-width:80vw;
         max-height:80vh;
         border-radius:10px;
@@ -534,6 +535,7 @@
         border:2px solid transparent;
         transition: opacity 0.2s ease, border-color 0.2s ease;
         flex-shrink:0;
+        position:relative;
     }
 
     .gallery-thumb.active{
@@ -541,11 +543,25 @@
         border-color:#FAF7FF;
     }
 
-    .gallery-thumb img{
+    .gallery-thumb img,
+    .gallery-thumb video{
         width:100%;
         height:100%;
         object-fit:cover;
         display:block;
+    }
+
+    .gallery-thumb.is-video::after{
+        content:"▶";
+        position:absolute;
+        inset:0;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:#FAF7FF;
+        font-size:14px;
+        background: rgba(33,25,52,0.35);
+        pointer-events:none;
     }
 
     /* ================= RESPONSIVE ================= */
@@ -725,19 +741,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="web" data-images="images/aigle-1.png,images/aigle-2.png,images/aigle-3.png,images/aigle-4.png">
+                <div class="projects-display-images" data-category="web" data-images="images/zebu-1.png,images/zebu-2.png,images/zebu-3.mp4,images/zebu-4.mp4,images/zebu-5.png">
                     <div class="projects-tag">développement</div>
                     <div class="projects-image" onclick="openGallery(this)">
-                        <img src="images/aigle-1.png" alt="">
+                        <img src="images/zebu-1.png" alt="">
                     </div>
                     <div class="projects-info">
-                        <span><strong>Site de gestion et creation de produit</strong></span>
+                        <span><strong>Jeux de vole de zebu</strong></span>
                         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                             <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
-                                MySQL
+                                Godot
                             </div>
                             <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
-                                PHP
+                                Photoshop
                             </div>
                         </div>
                     </div>
@@ -758,6 +774,23 @@
                             </div>
                             <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
                                 Adobe XD
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="projects-display-images" data-category="web" data-images="images/aigle-1.png,images/aigle-2.png,images/aigle-3.png,images/aigle-4.png">
+                    <div class="projects-tag">développement</div>
+                    <div class="projects-image" onclick="openGallery(this)">
+                        <img src="images/aigle-1.png" alt="">
+                    </div>
+                    <div class="projects-info">
+                        <span><strong>Site de gestion et creation de produit</strong></span>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                MySQL
+                            </div>
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                PHP
                             </div>
                         </div>
                     </div>
@@ -789,23 +822,6 @@
                         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                             <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
                                 Wordpress
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="projects-display-images" data-category="web" data-images="images/zebu-1.png">
-                    <div class="projects-tag">développement</div>
-                    <div class="projects-image" onclick="openGallery(this)">
-                        <img src="images/zebu-1.png" alt="">
-                    </div>
-                    <div class="projects-info">
-                        <span><strong>Jeux de vole de zebu</strong></span>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
-                                Godot
-                            </div>
-                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
-                                Photoshop
                             </div>
                         </div>
                     </div>
@@ -1021,6 +1037,7 @@
                 <button class="gallery-arrow" id="galleryPrev" onclick="prevGalleryImage()" aria-label="Image précédente">&#10094;</button>
                 <div class="gallery-image-wrap">
                     <img id="galleryMainImage" src="" alt="">
+                    <video id="galleryMainVideo" controls playsinline style="display:none"></video>
                 </div>
                 <button class="gallery-arrow" id="galleryNext" onclick="nextGalleryImage()" aria-label="Image suivante">&#10095;</button>
             </div>
@@ -1116,6 +1133,7 @@
 
     function closeGallery(){
         document.getElementById('galleryModal').classList.remove('active');
+        document.getElementById('galleryMainVideo').pause();
         document.body.style.overflow = '';
     }
 
@@ -1138,8 +1156,29 @@
         renderGallery();
     }
 
+    function isVideo(src){
+        return /\.(mp4|webm|mov)$/i.test(src);
+    }
+
     function renderGallery(){
-        document.getElementById('galleryMainImage').src = galleryImages[galleryIndex];
+        const src = galleryImages[galleryIndex];
+        const imgEl = document.getElementById('galleryMainImage');
+        const videoEl = document.getElementById('galleryMainVideo');
+
+        videoEl.pause();
+
+        if (isVideo(src)) {
+            imgEl.style.display = 'none';
+            imgEl.src = '';
+            videoEl.src = src;
+            videoEl.style.display = 'block';
+        } else {
+            videoEl.style.display = 'none';
+            videoEl.src = '';
+            imgEl.src = src;
+            imgEl.style.display = 'block';
+        }
+
         document.getElementById('galleryCounter').textContent = galleryImages.length > 1
             ? `${galleryIndex + 1} / ${galleryImages.length}`
             : '';
@@ -1152,10 +1191,12 @@
         const thumbsContainer = document.getElementById('galleryThumbs');
         thumbsContainer.innerHTML = '';
         if (galleryImages.length > 1) {
-            galleryImages.forEach((src, i) => {
+            galleryImages.forEach((thumbSrc, i) => {
                 const thumb = document.createElement('div');
-                thumb.className = 'gallery-thumb' + (i === galleryIndex ? ' active' : '');
-                thumb.innerHTML = `<img src="${src}" alt="">`;
+                thumb.className = 'gallery-thumb' + (i === galleryIndex ? ' active' : '') + (isVideo(thumbSrc) ? ' is-video' : '');
+                thumb.innerHTML = isVideo(thumbSrc)
+                    ? `<video src="${thumbSrc}" muted></video>`
+                    : `<img src="${thumbSrc}" alt="">`;
                 thumb.onclick = () => goToGalleryImage(i);
                 thumbsContainer.appendChild(thumb);
             });

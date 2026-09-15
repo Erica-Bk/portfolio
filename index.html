@@ -474,6 +474,11 @@
         border-radius:50%;
         font-size:20px;
         cursor:pointer;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:0;
+        line-height:1;
         transition: opacity 0.2s ease, transform 0.2s ease;
     }
 
@@ -639,6 +644,15 @@
             width:44px;
             height:44px;
         }
+        .gallery-modal[data-project="cinema"] .gallery-image-wrap,
+        .gallery-modal[data-project="musique"] .gallery-image-wrap{
+            max-height:45vh;
+        }
+        .gallery-modal[data-project="cinema"] .gallery-image-wrap img,
+        .gallery-modal[data-project="musique"] .gallery-image-wrap img{
+            max-width:55vw;
+            max-height:45vh;
+        }
     }
 </style>
 </head>
@@ -694,7 +708,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="uiux" data-images="images/cinema-2.png,images/cinema-3.png,images/cinema-4.png,images/cinema-5.png">
+                <div class="projects-display-images" data-category="uiux" data-project="cinema" data-images="images/cinema-2.png,images/cinema-3.png,images/cinema-4.png,images/cinema-5.png">
                     <div class="projects-tag">ui/ux</div>
                     <div class="projects-image" onclick="openGallery(this)">
                         <img src="images/cinema-1.png" alt="">
@@ -748,7 +762,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="uiux" data-images="images/musique-2.png,images/musique-3.png,images/musique-4.png,images/musique-5.png,images/musique-6.png">
+                <div class="projects-display-images" data-category="uiux" data-project="musique" data-images="images/musique-2.png,images/musique-3.png,images/musique-4.png,images/musique-5.png,images/musique-6.png">
                     <div class="projects-tag">ui/ux</div>
                     <div class="projects-image" onclick="openGallery(this)">
                         <img src="images/musique-1.png" alt="">
@@ -810,11 +824,14 @@
                             <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
                                 Indesign
                             </div>
+                            <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
+                                Illustrator
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <button id="showMoreBtn" class="projects-show-more" onclick="toggleShowMore()">Show more</button>
+            <button id="showMoreBtn" class="projects-show-more" onclick="toggleShowMore()">Voir plus</button>
         </div>
     </section>
   
@@ -1031,7 +1048,7 @@
         const btn = document.getElementById('showMoreBtn');
         if (matching.length > 3) {
             btn.style.display = 'inline-block';
-            btn.textContent = expanded ? 'Show less' : 'Show more';
+            btn.textContent = expanded ? 'Voir moin' : 'Voir plus';
         } else {
             btn.style.display = 'none';
         }
@@ -1089,6 +1106,8 @@
         const imagesAttr = card.dataset.images || imageDiv.querySelector('img').getAttribute('src');
         galleryImages = imagesAttr.split(',').map(s => s.trim()).filter(Boolean);
         galleryIndex = 0;
+
+        document.getElementById('galleryModal').dataset.project = card.dataset.project || '';
 
         renderGallery();
         document.getElementById('galleryModal').classList.add('active');

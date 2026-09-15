@@ -384,8 +384,12 @@
     .skills-panel{
         display:none;
         grid-template-columns: repeat(3, 1fr);
+        align-content: start;      /* rows stay their natural size, don't stretch to fill 500px */
+        align-items: start;        /* each skill-row keeps its own height, doesn't stretch vertically */
         gap:28px 50px;
         width:100%;
+        height: 500px;
+        overflow-y: auto;          /* safety net: if a tab has more skills than fits, it scrolls instead of overflowing/breaking layout */
         background-color: #8168D2;
         border-radius: 10px;
         padding: 24px 20px;

@@ -237,6 +237,25 @@
         margin-top: 60px;
     }
 
+    html{
+        scroll-padding-top: 90px;
+    }
+
+    .portfolio-nav.pinned{
+        position:fixed;
+        top:0;
+        left:50%;
+        transform:translateX(-50%);
+        z-index:3000;
+        background: var(--card);
+        padding:14px 32px;
+        border-radius:0 0 24px 24px;
+        box-shadow: var(--paper-shadow);
+        max-width:90vw;
+        margin-top:0;
+        gap:clamp(16px, 4vw, 60px);
+    }
+
     .portfolio-nav a{
         color: #211934;
         text-decoration:none;
@@ -244,6 +263,7 @@
         padding:6px 4px;
         position:relative;
         transition: color 0.2s ease;
+        white-space:nowrap;
     }
 
     .portfolio-nav a::after{
@@ -942,6 +962,14 @@
         .portfolio-nav{
             gap:16px;
         }
+        .portfolio-nav.pinned{
+            gap:12px;
+            padding:10px 16px;
+            top:0;
+        }
+        .portfolio-nav.pinned a{
+            font-size:12px;
+        }
         .projects-display{
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
@@ -1015,7 +1043,7 @@
 <body>
 
   <div class="bg-grid"></div>
-  
+
     <section id="info">
         <div class="panel">
             <div class="badge-stack">
@@ -1034,13 +1062,12 @@
                     </div>
                 </div>
             </div>
-            <div class="portfolio-nav">
-                <div></div>
+            <nav class="portfolio-nav" id="portfolioNav">
                 <a href="#competences">competences</a>
                 <a href="#projets">projets</a>
                 <a href="#parcours">parcours</a>
                 <a href="#contacts">contacts</a>
-            </div>
+            </nav>
         </div>
     </section>
   
@@ -1435,6 +1462,21 @@
     </div>
 
     <script>
+    const portfolioNav = document.getElementById('portfolioNav');
+    const infoSection = document.getElementById('info');
+
+    const infoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                portfolioNav.classList.remove('pinned');
+            } else {
+                portfolioNav.classList.add('pinned');
+            }
+        });
+    }, { threshold: 0 });
+
+    infoObserver.observe(infoSection);
+
     let currentCategory = 'all';
     let expanded = false;
 

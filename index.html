@@ -281,6 +281,7 @@
         display:flex;
         align-items:center;
         justify-content:center;
+        background-color: #8168D2;
     }
 
     #parcours .panel{
@@ -336,7 +337,6 @@
     }
 
     #competences .panel{
-        background-color:#8168D2;
         color:#FAF7FF;
         height:auto;
         min-height:750px;
@@ -344,31 +344,52 @@
         gap:40px;
     }
 
+    .skills-widget{
+        display:flex;
+        flex-direction:column;
+        gap:0;
+        width:100%;
+        max-width:1000px;
+        margin:0 auto;
+    }
+
     .skills-tabs{
         display:flex;
         flex-wrap:wrap;
-        gap:clamp(16px, 4vw, 40px);
+        gap:6px;
         cursor:pointer;
         font-weight:600;
         justify-content:center;
         text-align:center;
+        position:relative;
+        z-index:1;
     }
 
     .skills-tab{
-        opacity:0.6;
+        opacity:0.7;
+        background-color: rgba(129,104,210,0.45);
+        color: #FAF7FF;
+        padding: 12px 20px;
+        text-decoration: none;
+        border-radius: 10px 10px 0 0;
+        transition: background-color 0.2s ease, opacity 0.2s ease;
     }
 
     .skills-tab.active{
         opacity:1;
-        text-decoration:underline;
+        background-color:#8168D2;
+        text-decoration:none;
     }
 
     .skills-panel{
         display:none;
         grid-template-columns: repeat(3, 1fr);
-        gap:16px 40px;
+        gap:28px 50px;
         width:100%;
-        max-width:900px;
+        background-color: #8168D2;
+        border-radius: 10px;
+        padding: 24px 20px;
+        margin-top:0;
     }
 
     .skills-panel.active{
@@ -388,17 +409,19 @@
     }
 
     .skill-icon{
-        width:48px;
-        height:48px;
+        width:72px;
+        height:72px;
         flex-shrink:0;
         background:#FAF7FF;
-        border-radius:10px;
+        border-radius:14px;
         display:flex;
         align-items:center;
         justify-content:center;
-        padding:8px;
+        padding:12px;
         margin: 0 auto;
         color: #211934;
+        font-size:16px;
+        font-weight:600;
     }
 
     .skill-icon img{
@@ -611,7 +634,7 @@
             gap:14px;
         }
         .skills-panel{
-            gap:14px 20px;
+            gap:22px 30px;
         }
         .gallery-stage{
             gap:8px;
@@ -653,8 +676,8 @@
             grid-template-columns: repeat(2, 1fr);
         }
         .skill-icon{
-            width:40px;
-            height:40px;
+            width:56px;
+            height:56px;
         }
         .gallery-thumb{
             width:44px;
@@ -694,7 +717,7 @@
   
     <section id="projets">
         <div class="panel">
-            <div>
+            <div style="text-align:center; width:100%;">
                 <h1>Projets</h1>
                 <div class="projects-filters">
                     <div onclick="filterProjects('all')">All</div>
@@ -854,6 +877,7 @@
     <section id="parcours">
         <div class="panel">
             <div class="timeline">
+                <h1>Formations</h1>
                 <div class="timeline-line"></div>
                 <div class="timeline-row">
                     <div class="circle-col">
@@ -881,6 +905,16 @@
                     </div>
                     <div class="timeline-text">
                         <small>2022</small>
+                        <span>Formation en montage video et graphic design</span>
+                        <span>Itoo Com</span>
+                    </div>
+                </div>
+                <div class="timeline-row">
+                    <div class="circle-col">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="timeline-text">
+                        <small>2022</small>
                         <span>BAC</span>
                         <span>Madagascar Christian Academy</span>
                     </div>
@@ -891,137 +925,139 @@
   
     <section id="competences">
         <div class="panel">
-            <h1>Competences</h1>
+            <h1 style="color: #211934;">Competences</h1>
 
-            <div class="skills-tabs">
-                <div class="skills-tab active" onclick="showSkills('developement')">developement</div>
-                <div class="skills-tab" onclick="showSkills('design')">design</div>
-                <div class="skills-tab" onclick="showSkills('outils-base')">Outils et Base de données</div>
-            </div>
+            <div class="skills-widget">
+                <div class="skills-tabs">
+                    <div class="skills-tab active" onclick="showSkills('developement')">Développement</div>
+                    <div class="skills-tab" onclick="showSkills('design')">Design</div>
+                    <div class="skills-tab" onclick="showSkills('outils-base')">Outils et Base de données</div>
+                </div>
 
-            <div class="skills-panel active" data-skills="developement">
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            JS
+                <div class="skills-panel active" data-skills="developement">
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                JS
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" title="Java">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="SpringBoot" title="SpringBoot">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <em>php</em>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML/CSS" title="HTML/CSS">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="VueJS" title="VueJS">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" title="PHP">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="Api Rest" title="Api Rest">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" title="Java">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            SpringBoot
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <em>php</em>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML/CSS" title="HTML/CSS">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="VueJS" title="VueJS">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" title="PHP">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="Api Rest" title="Api Rest">
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="skills-panel" data-skills="design">
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" title="Figma">
+                <div class="skills-panel" data-skills="design">
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" title="Figma">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg" alt="Adobe XD" title="Adobe XD">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Illustrator" title="Illustrator">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/indesign/indesign-plain.svg" alt="InDesign" title="InDesign">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Photoshop" title="Photoshop">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg" alt="Adobe XD" title="Adobe XD">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Illustrator" title="Illustrator">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/indesign/indesign-plain.svg" alt="InDesign" title="InDesign">
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Photoshop" title="Photoshop">
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="skills-panel" data-skills="outils-base">
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="Mysql" title="Mysql">
+                <div class="skills-panel" data-skills="outils-base">
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="Mysql" title="Mysql">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" title="PostgreSQL">
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" title="PostgreSQL">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" title="Git">
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" title="Git">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="skill-row">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code" title="VS Code">
+                    <div class="skill-row">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code" title="VS Code">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1029,7 +1065,6 @@
         </div>
     </section>
 
-    <!-- ================= GALLERY MODAL ================= -->
     <div class="gallery-modal" id="galleryModal">
         <div class="gallery-modal-content">
             <button class="gallery-close" onclick="closeGallery()" aria-label="Fermer">&times;</button>
@@ -1114,7 +1149,6 @@
         });
     }
 
-    /* ================= GALLERY LOGIC ================= */
     let galleryImages = [];
     let galleryIndex = 0;
 

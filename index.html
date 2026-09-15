@@ -228,13 +228,22 @@
         fill:currentColor;
     }
 
+    /* ---------- Portfolio nav (fixed: always single row, scrolls instead of wrapping) ---------- */
     .portfolio-nav{
         display:flex;
-        flex-wrap:wrap;
+        flex-wrap:nowrap;
         justify-content:center;
         gap:clamp(20px, 6vw, 100px);
         color: #211934;
         margin-top: 60px;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+        max-width:100%;
+    }
+
+    .portfolio-nav::-webkit-scrollbar{
+        display:none;
     }
 
     html{
@@ -254,6 +263,9 @@
         max-width:90vw;
         margin-top:0;
         gap:clamp(16px, 4vw, 60px);
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
     }
 
     .portfolio-nav a{
@@ -264,6 +276,7 @@
         position:relative;
         transition: color 0.2s ease;
         white-space:nowrap;
+        flex-shrink:0;
     }
 
     .portfolio-nav a::after{
@@ -987,11 +1000,14 @@
     @media (max-width: 420px){
         .portfolio-nav{
             gap:16px;
+            justify-content:flex-start;
+            padding:0 8px;
         }
         .portfolio-nav.pinned{
             gap:12px;
             padding:10px 16px;
             top:0;
+            justify-content:flex-start;
         }
         .portfolio-nav.pinned a{
             font-size:12px;

@@ -87,13 +87,15 @@
 
     .clip{
         width:44px;
-        height:250px;
+        height:280px;
         background-color: var(--lilac);
         margin:0 auto;
         border-radius:3px;
         box-shadow: 0 3px 6px rgba(0,0,0,0.25);
         position:relative;
         z-index:2;
+        margin-top:-200px;
+        margin-bottom:-30px;
     }
 
     .clip::after{
@@ -111,7 +113,7 @@
 
     .badge{
         display:flex;
-        width:900px;
+        width:800px;
         background:var(--card);
         border-radius:32px;
         box-shadow:var(--paper-shadow);
@@ -231,6 +233,7 @@
         justify-content:center;
         gap:clamp(20px, 6vw, 100px);
         color: #211934;
+        margin-top: 60px;
     }
 
     #projets{
@@ -519,7 +522,7 @@
 
     .skills-panel{
         display:none;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         align-content: start;      /* rows stay their natural size, don't stretch to fill 500px */
         align-items: start;        /* each skill-row keeps its own height, doesn't stretch vertically */
         gap:28px 50px;
@@ -568,6 +571,100 @@
         width:100%;
         height:100%;
         object-fit:contain;
+    }
+
+    /* ---------- Contacts section ---------- */
+    #contacts{
+        position:relative;
+        z-index:1;
+        min-height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:80px 0;
+    }
+
+    #contacts .panel{
+        color:#211934;
+        height:auto;
+        min-height:auto;
+        justify-content:center;
+        gap:40px;
+    }
+
+    .contact-card{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        background:var(--card);
+        border-radius:32px;
+        box-shadow:var(--paper-shadow);
+        padding:clamp(36px, 5vw, 64px);
+        gap:24px;
+        max-width:420px;
+        width:100%;
+    }
+
+    .contact-card .portrait{
+        margin:0 auto;
+    }
+
+    .contact-card .mark{
+        font-size:clamp(0.9rem, 1.3vw, 1.15rem);
+        font-weight:600;
+        color:var(--violet);
+    }
+
+    .contact-card .name{
+        font-family:'Fraunces', serif;
+        font-size:clamp(1.6rem, 3vw, 2.4rem);
+        font-weight:600;
+        color:var(--ink);
+        line-height:1.1;
+    }
+
+    .contact-details{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        width:100%;
+    }
+
+    .contact-details .contact-line{
+        font-family:'IBM Plex Mono', monospace;
+        font-size:clamp(0.85rem, 1.2vw, 1.05rem);
+        color:var(--violet);
+    }
+
+    .contact-strip{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:16px;
+    }
+
+    .contact-strip a{
+        width:44px;
+        height:44px;
+        border-radius:10px;
+        background-color:#6C4FCB;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:#FAF7FF;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .contact-strip a:hover{
+        transform:translateY(-3px);
+        opacity:0.85;
+    }
+
+    .contact-strip svg{
+        width:22px;
+        height:22px;
+        fill:currentColor;
     }
 
     /* ================= GALLERY MODAL ================= */
@@ -835,11 +932,11 @@
             padding:3px 6px !important;
         }
         .skills-panel{
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
         }
         .skill-icon{
-            width:56px;
-            height:56px;
+            width:48px;
+            height:48px;
         }
         .gallery-thumb{
             width:44px;
@@ -875,21 +972,6 @@
                         </div>
                         <div class="plate">
                             <div class="name">Bakolimalala Erica</div>
-                            <!-- <div class="role">Design & Développement web</div> -->
-                            <div class="serial">0322556310</div>
-                            <div class="serial">bakolimalala.erica@gmail.com</div>
-                            <div class="serial">Lot IVX 75 E Bis Ankazomanga, Sud</div>
-                        </div>
-                        <div class="strip">
-                            <a href="https://linkedin.com/in/bakolimalala-erica" target="_blank" rel="noopener" aria-label="LinkedIn">
-                                <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0z"/></svg>
-                            </a>
-                            <a href="https://web.facebook.com/bakolimalala.erica" target="_blank" rel="noopener" aria-label="Facebook">
-                                <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99H7.9v-2.89h2.54V9.79c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.89h-2.34V21.9C18.34 21.15 22 17.01 22 12z"/></svg>
-                            </a>
-                            <a href="https://github.com/Erica-Bk" target="_blank" rel="noopener" aria-label="GitHub">
-                                <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.33.95.1-.74.39-1.25.71-1.54-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.24 2.75.12 3.04.74.81 1.18 1.84 1.18 3.1 0 4.43-2.7 5.41-5.26 5.7.41.36.78 1.08.78 2.18 0 1.58-.01 2.84-.01 3.23 0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -899,6 +981,7 @@
                 <span>competences</span>
                 <span>projets</span>
                 <span>parcours</span>
+                <span>contacts</span>
             </div>
         </div>
     </section>
@@ -1248,6 +1331,30 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacts">
+        <div class="panel">
+            <h1 style="color: #211934;">Contacts</h1>
+            <div class="contact-card">
+                <div class="contact-details">
+                    <span class="contact-line">0322556310</span>
+                    <span class="contact-line">bakolimalala.erica@gmail.com</span>
+                    <span class="contact-line">Lot IVX 75 E Bis Ankazomanga, Sud</span>
+                </div>
+                <div class="contact-strip">
+                    <a href="https://linkedin.com/in/bakolimalala-erica" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0z"/></svg>
+                    </a>
+                    <a href="https://web.facebook.com/bakolimalala.erica" target="_blank" rel="noopener" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99H7.9v-2.89h2.54V9.79c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.89h-2.34V21.9C18.34 21.15 22 17.01 22 12z"/></svg>
+                    </a>
+                    <a href="https://github.com/Erica-Bk" target="_blank" rel="noopener" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.33.95.1-.74.39-1.25.71-1.54-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.24 2.75.12 3.04.74.81 1.18 1.84 1.18 3.1 0 4.43-2.7 5.41-5.26 5.7.41.36.78 1.08.78 2.18 0 1.58-.01 2.84-.01 3.23 0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+                    </a>
                 </div>
             </div>
         </div>

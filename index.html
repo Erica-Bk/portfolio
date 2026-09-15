@@ -1464,13 +1464,18 @@
     <script>
     const portfolioNav = document.getElementById('portfolioNav');
     const infoSection = document.getElementById('info');
+    const navHome = portfolioNav.parentElement;
+    const navAnchor = document.createComment('nav-anchor');
+    navHome.insertBefore(navAnchor, portfolioNav);
 
     const infoObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 portfolioNav.classList.remove('pinned');
+                navHome.insertBefore(portfolioNav, navAnchor.nextSibling);
             } else {
                 portfolioNav.classList.add('pinned');
+                document.body.appendChild(portfolioNav);
             }
         });
     }, { threshold: 0 });

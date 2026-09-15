@@ -306,12 +306,38 @@
     .projects-filters{
         display:flex;
         flex-wrap:wrap;
-        gap:clamp(16px, 4vw, 40px);
+        gap:12px;
         cursor:pointer;
         align-items: center;
         justify-content: center;
         font-weight:600;
         text-align:center;
+        margin-top:24px;
+    }
+
+    .projects-filters div{
+        background-color: rgba(172,145,235,0.18);
+        color: var(--violet);
+        padding:10px 24px;
+        border-radius:10px;
+        border:2px solid transparent;
+        font-size:14px;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .projects-filters div:hover{
+        background-color: rgba(172,145,235,0.32);
+        transform: translateY(-2px);
+    }
+
+    .projects-filters div.active{
+        background-color: var(--violet);
+        color: #FAF7FF;
+        border-color: var(--violet);
+    }
+
+    .projects-filters div.active:hover{
+        transform:none;
     }
 
     .projects-display{
@@ -782,7 +808,7 @@
         width:44px;
         height:44px;
         min-width:44px;
-        border-radius:50%;
+        border-radius:10px;
         font-size:20px;
         cursor:pointer;
         display:flex;
@@ -1076,10 +1102,10 @@
             <div style="text-align:center; width:100%;">
                 <h1>Projets</h1>
                 <div class="projects-filters">
-                    <div onclick="filterProjects('all')">All</div>
-                    <div onclick="filterProjects('uiux')">UI/UX</div>
-                    <div onclick="filterProjects('branding')">Design</div>
-                    <div onclick="filterProjects('web')">Développement</div>
+                    <div class="active" onclick="filterProjects('all', this)">All</div>
+                    <div onclick="filterProjects('uiux', this)">UI/UX</div>
+                    <div onclick="filterProjects('branding', this)">Design</div>
+                    <div onclick="filterProjects('web', this)">Développement</div>
                 </div>
             </div>
             <div class="projects-display" id="projectsDisplay">
@@ -1506,9 +1532,11 @@
         }
     }
 
-    function filterProjects(category) {
+    function filterProjects(category, el) {
         currentCategory = category;
         expanded = false;
+        document.querySelectorAll('.projects-filters div').forEach(f => f.classList.remove('active'));
+        if (el) el.classList.add('active');
         applyProjectsDisplay();
     }
 

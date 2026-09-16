@@ -566,7 +566,7 @@
     #competences .panel{
         color:#FAF7FF;
         height:auto;
-        min-height:750px;
+        min-height:950px;
         justify-content:flex-start;
         gap:40px;
     }
@@ -576,7 +576,7 @@
         flex-direction:column;
         gap:0;
         width:100%;
-        max-width:1000px;
+        max-width:1200px;
         margin:0 auto;
     }
 
@@ -596,7 +596,8 @@
         opacity:0.7;
         background-color: rgba(129,104,210,0.45);
         color: #FAF7FF;
-        padding: 12px 20px;
+        padding: 14px 26px;
+        font-size: 15px;
         text-decoration: none;
         border-radius: 10px 10px 0 0;
         transition: background-color 0.2s ease, opacity 0.2s ease;
@@ -611,15 +612,15 @@
     .skills-panel{
         display:none;
         grid-template-columns: repeat(5, 1fr);
-        align-content: start;      /* rows stay their natural size, don't stretch to fill 500px */
+        align-content: start;      /* rows stay their natural size, don't stretch to fill 650px */
         align-items: start;        /* each skill-row keeps its own height, doesn't stretch vertically */
-        gap:28px 50px;
+        gap:40px 60px;
         width:100%;
-        height: 500px;
+        height: 650px;
         overflow-y: auto;          /* safety net: if a tab has more skills than fits, it scrolls instead of overflowing/breaking layout */
         background-color: #8168D2;
-        border-radius: 10px;
-        padding: 24px 20px;
+        border-radius: 14px;
+        padding: 40px 32px;
         margin-top:0;
     }
 
@@ -640,18 +641,18 @@
     }
 
     .skill-icon{
-        width:72px;
-        height:72px;
+        width:96px;
+        height:96px;
         flex-shrink:0;
         background:#FAF7FF;
-        border-radius:14px;
+        border-radius:18px;
         display:flex;
         align-items:center;
         justify-content:center;
-        padding:12px;
+        padding:16px;
         margin: 0 auto;
         color: #211934;
-        font-size:16px;
+        font-size:20px;
         font-weight:600;
     }
 

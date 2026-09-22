@@ -806,16 +806,36 @@
         position:relative;
         width:100%;
         max-width:1600px;
+        max-height:90vh;
+        overflow-y:auto;
+        overflow-x:hidden;
         display:flex;
         flex-direction:column;
         align-items:center;
         gap:20px;
+        padding:4px 10px 20px;
+        scrollbar-width:thin;
+        scrollbar-color: var(--lilac) transparent;
+    }
+
+    .gallery-modal-content::-webkit-scrollbar{
+        width:8px;
+    }
+
+    .gallery-modal-content::-webkit-scrollbar-track{
+        background:transparent;
+    }
+
+    .gallery-modal-content::-webkit-scrollbar-thumb{
+        background-color: var(--lilac);
+        border-radius:8px;
     }
 
     .gallery-close{
-        position:absolute;
-        top:-46px;
-        right:0;
+        position:sticky;
+        top:-4px;
+        align-self:flex-end;
+        margin-bottom:-40px;
         background:none;
         border:none;
         color:#FAF7FF;
@@ -823,6 +843,7 @@
         line-height:1;
         cursor:pointer;
         padding:4px 8px;
+        z-index:5;
     }
 
     .gallery-title{
@@ -874,24 +895,20 @@
         display:flex;
         align-items:center;
         justify-content:center;
-        max-height:80vh;
+        max-height:65vh;
     }
 
     .gallery-image-wrap img,
     .gallery-image-wrap video{
         max-width:80vw;
-        max-height:80vh;
+        max-height:65vh;
         border-radius:10px;
         box-shadow: var(--paper-shadow);
         object-fit:contain;
     }
 
-    .gallery-image-wrap.rotate img,
-    .gallery-image-wrap.rotate video{
-        transform: rotate(90deg);
-        max-width: 80vh;
-        max-height: 80vw;
-    }
+    /* Rotation is desktop-only (see min-width:901px media query below) —
+       on tablets/phones these project photos stay vertical, unrotated. */
 
     .gallery-counter{
         color:#FAF7FF;
@@ -946,6 +963,63 @@
         font-size:14px;
         background: rgba(33,25,52,0.35);
         pointer-events:none;
+    }
+
+    /* ---------- Gallery details (project info panel) ---------- */
+    .gallery-details{
+        width:100%;
+        max-width:760px;
+        background: var(--card);
+        border-radius:20px;
+        box-shadow: var(--paper-shadow);
+        padding:clamp(24px, 4vw, 36px);
+        display:flex;
+        flex-direction:column;
+        gap:14px;
+        text-align:left;
+    }
+
+    .gallery-details-title{
+        font-family:'Fraunces', serif;
+        font-size:clamp(1.2rem, 2.4vw, 1.6rem);
+        font-weight:600;
+        color:var(--ink);
+        margin:0;
+    }
+
+    .gallery-details-tags{
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+    }
+
+    .gallery-details-tags div{
+        border:2px solid var(--violet);
+        color:var(--violet);
+        padding:5px 12px;
+        border-radius:8px;
+        font-size:12px;
+        font-weight:600;
+    }
+
+    .gallery-details-text{
+        font-size:14px;
+        line-height:1.6;
+        color:#4a3f66;
+        margin:0;
+        white-space:pre-line;
+    }
+
+    /* Desktop only: rotate "développement/web" project photos 90° so they
+       display horizontally. Below this width (tablets/phones) they stay
+       vertical/unrotated — see mobile overrides further down. */
+    @media (min-width: 901px){
+        .gallery-image-wrap.rotate img,
+        .gallery-image-wrap.rotate video{
+            transform: rotate(90deg);
+            max-width: 65vh;
+            max-height: 80vw;
+        }
     }
 
     /* ================= RESPONSIVE ================= */
@@ -1042,12 +1116,12 @@
         }
         .gallery-image-wrap{
             width:100%;
-            max-height:78vh;
+            max-height:55vh;
         }
         .gallery-image-wrap img,
         .gallery-image-wrap video{
             max-width:100%;
-            max-height:78vh;
+            max-height:55vh;
             width:auto;
             height:auto;
         }
@@ -1153,6 +1227,9 @@
             min-width:34px;
             font-size:14px;
         }
+        .gallery-details{
+            padding:20px;
+        }
     }
 </style>
 </head>
@@ -1205,7 +1282,7 @@
                 </div>
             </div>
             <div class="projects-display" id="projectsDisplay">
-                <div class="projects-display-images" data-category="web" data-images="images/pointage-2.webp,images/pointage-3.webp,images/pointage-4.webp,images/pointage-5.webp">
+                <div class="projects-display-images" data-category="web" data-images="images/pointage-2.webp,images/pointage-3.webp,images/pointage-4.webp,images/pointage-5.webp" data-description="Développement d'un site web permettant de gérer les salaires des employés à partir de leurs heures de travail pointées. Les données de pointage pourront être importées via un fichier CSV, puis automatiquement traitées afin de calculer les heures travaillées et les salaires correspondants. On peut aussi modifier le pourcentage de taux des employées par categorie.">
                     <div class="projects-tag">développement</div>
                     <div class="projects-image" onclick="openGallery(this)">
                         <img src="images/pointage-1.webp" alt="">
@@ -1225,7 +1302,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="uiux" data-project="cinema" data-images="images/cinema-2.webp,images/cinema-3.webp,images/cinema-4.webp,images/cinema-5.webp">
+                <div class="projects-display-images" data-category="uiux" data-project="cinema" data-images="images/cinema-2.webp,images/cinema-3.webp,images/cinema-4.webp,images/cinema-5.webp" data-description="Conception d'une interface utilisateur pour une application de cinéma permettant aux utilisateurs de consulter les films à l'affiche, de choisir une séance, de sélectionner leurs places et d'acheter leurs billets en ligne.">
                     <div class="projects-tag">ui/ux</div>
                     <div class="projects-image" onclick="openGallery(this)">
                         <img src="images/cinema-1.webp" alt="">
@@ -1242,13 +1319,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="web" data-images="images/zebu-1.webp,images/zebu-2.webp,images/zebu-3.mp4,images/zebu-4.mp4,images/zebu-5.webp">
+                <div class="projects-display-images" data-category="web" data-images="images/zebu-1.webp,images/zebu-2.webp,images/zebu-3.mp4,images/zebu-4.mp4,images/zebu-5.webp" data-description="Projet de groupe : jeu narratif
+                    Valifofo est un jeu narratif dans lequel le joueur incarne un personnage qui souhaite épouser une fille. Pour pouvoir réaliser son projet, il doit voler un zébu.
+                    
+                    Tout au long de l'histoire, le joueur devra faire différents choix : voler le zébu ou renoncer à le faire, fuir ou assumer les conséquences de ses actes, etc.
+                    
+                    Si le personnage se fait arrêter par la police, il peut être envoyé en prison. Les décisions prises par le joueur influencent directement le déroulement de l'histoire et peuvent conduire à différentes fins.">
+
                     <div class="projects-tag">développement</div>
                     <div class="projects-image" onclick="openGallery(this)">
                         <img src="images/zebu-1.webp" alt="">
                     </div>
                     <div class="projects-info">
-                        <span><strong>Jeux de vole de zebu</strong></span>
+                        <span><strong>Valifofo</strong></span>
                         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                             <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
                                 Godot
@@ -1259,13 +1342,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="branding" data-images="images/chat-1.webp,images/chat-2.webp,images/chat-3.webp,images/chat-4.webp">
+                <div class="projects-display-images" data-category="branding" data-images="images/chat-1.webp,images/chat-2.webp,images/chat-3.webp,images/chat-4.webp" data-description="CHA-T
+
+                    Création d'une marque de salon de thé avec des chats
+                    
+                    CHA-T est une marque de salon de thé inspirée par l'univers des chats et du thé. Le concept propose une ambiance chaleureuse, conviviale et relaxante, où les clients peuvent déguster leur thé en compagnie des chats.
+                    
+                    La couleur verte a été choisie pour représenter la nature, le thé, le calme et la sérénité, afin de créer une identité visuelle douce et apaisante.">
+
                     <div class="projects-tag">design</div>
                     <div class="projects-image" onclick="openGallery(this)">
                         <img src="images/chat-3.webp" alt="">
                     </div>
                     <div class="projects-info">
-                        <span><strong>CHA-T - Marque de salon de thé</strong></span>
+                        <span><strong>CHA-T</strong></span>
                         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                             <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
                                 Illustrator
@@ -1279,7 +1369,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="web" data-images="images/aigle-1.webp,images/aigle-2.webp,images/aigle-3.webp,images/aigle-4.webp">
+                <div class="projects-display-images" data-category="web" data-images="images/aigle-1.webp,images/aigle-2.webp,images/aigle-3.webp,images/aigle-4.webp" data-description="Conception d'un site web permettant de créer, ajouter et gérer de nouveaux modèles et produits sur un site vitrine.
+
+                    La plateforme intègre également un système de gestion des stocks, permettant de suivre les quantités disponibles, les entrées et les sorties de produits, ainsi que de mettre à jour facilement les informations des produits.">
+
                     <div class="projects-tag">développement</div>
                     <div class="projects-image" onclick="openGallery(this)">
                         <img src="images/aigle-1.webp" alt="">
@@ -1296,7 +1389,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="uiux" data-project="musique" data-images="images/musique-2.webp,images/musique-3.webp,images/musique-4.webp,images/musique-5.webp,images/musique-6.webp">
+                <div class="projects-display-images" data-category="uiux" data-project="musique" data-images="images/musique-2.webp,images/musique-3.webp,images/musique-4.webp,images/musique-5.webp,images/musique-6.webp" data-description="L'application permet aux utilisateurs de découvrir les albums, de consulter la liste des chansons, d'en apprendre davantage sur le groupe, de découvrir et acheter leurs produits dérivés, ainsi que de consulter les prochains concerts et événements du groupe.">
                     <div class="projects-tag">ui/ux</div>
                     <div class="projects-image" onclick="openGallery(this)">
                         <img src="images/musique-1.webp" alt="">
@@ -1313,13 +1406,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="uiux" data-images="images/boulangerie-2.webp,images/boulangerie-3.webp,images/boulangerie-4.webp,images/boulangerie-5.webp">
+                <div class="projects-display-images" data-category="uiux" data-images="images/boulangerie-2.webp,images/boulangerie-3.webp,images/boulangerie-4.webp,images/boulangerie-5.webp" data-description="Conception d'un site web de boulangerie en ligne permettant aux clients de découvrir les différents produits proposés par la boulangerie, de consulter leurs informations et de passer commande en ligne.
+
+                    Le site a été créé avec WordPress, avec une interface simple, claire et adaptée à la présentation des produits et à la prise de commandes.">
+
                     <div class="projects-tag">ui/ux</div>
                     <div class="projects-image" onclick="openGallery(this)">
                         <img src="images/boulangerie-1.webp" alt="">
                     </div>
                     <div class="projects-info">
-                        <span><strong>Design de boulangerie en ligne</strong></span>
+                        <span><strong>PAN</strong></span>
                         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                             <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
                                 Wordpress
@@ -1327,13 +1423,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="projects-display-images" data-category="branding" data-images="images/evasion-2.webp,images/evasion-3.webp,images/evasion-4.webp,images/evasion-5.webp,images/evasion-6.webp,images/evasion-7.webp">
+                <div class="projects-display-images" data-category="branding" data-images="images/evasion-2.webp,images/evasion-3.webp,images/evasion-4.webp,images/evasion-5.webp,images/evasion-6.webp,images/evasion-7.webp" data-description="Conception d'un magazine dédié à l'exploration du parc national de l'Isalo.
+
+                    Le magazine présente les différents itinéraires, les circuits d'exploration, les principaux lieux à découvrir ainsi que les tarifs et informations pratiques pour préparer une visite.">
+
                     <div class="projects-tag">design</div>
                     <div class="projects-image" onclick="openGallery(this)">
                         <img src="images/evasion-1.webp" alt="">
                     </div>
                     <div class="projects-info">
-                        <span><strong>EVASION - Magasive d'exploration a Isalo</strong></span>
+                        <span><strong>EVASION</strong></span>
                         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                             <div style="border: 2px solid #FAF7FF; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 500;">
                                 Photoshop
@@ -1689,6 +1788,11 @@
             </div>
             <div class="gallery-counter" id="galleryCounter"></div>
             <div class="gallery-thumbs" id="galleryThumbs"></div>
+            <div class="gallery-details" id="galleryDetails">
+                <p class="gallery-details-title" id="galleryDetailsTitle"></p>
+                <div class="gallery-details-tags" id="galleryDetailsTags"></div>
+                <p class="gallery-details-text" id="galleryDetailsText"></p>
+            </div>
         </div>
     </div>
 
@@ -1794,9 +1898,29 @@
         document.getElementById('galleryModal').dataset.project = card.dataset.project || '';
         document.getElementById('galleryModal').dataset.category = card.dataset.category || '';
 
+        renderGalleryDetails(card);
         renderGallery();
         document.getElementById('galleryModal').classList.add('active');
+        document.getElementById('galleryModal').scrollTop = 0;
         document.body.style.overflow = 'hidden';
+    }
+
+    function renderGalleryDetails(card){
+        const infoBlock = card.querySelector('.projects-info');
+        const titleEl = infoBlock ? infoBlock.querySelector('strong') : null;
+        const tagEls = infoBlock ? infoBlock.querySelectorAll('div[style*="display: flex"] > div') : [];
+
+        document.getElementById('galleryDetailsTitle').textContent = titleEl ? titleEl.textContent.trim() : '';
+
+        const tagsContainer = document.getElementById('galleryDetailsTags');
+        tagsContainer.innerHTML = '';
+        tagEls.forEach(tagEl => {
+            const tag = document.createElement('div');
+            tag.textContent = tagEl.textContent.trim();
+            tagsContainer.appendChild(tag);
+        });
+
+        document.getElementById('galleryDetailsText').textContent = card.dataset.description || '';
     }
 
     function closeGallery(){

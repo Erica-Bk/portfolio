@@ -1010,13 +1010,39 @@
             aspect-ratio:1/1;
         }
         .gallery-stage{
-            gap:8px;
+            position:relative;
+            gap:0;
         }
         .gallery-arrow{
-            width:36px;
-            height:36px;
-            min-width:36px;
-            font-size:16px;
+            position:absolute;
+            top:50%;
+            transform:translateY(-50%);
+            width:38px;
+            height:38px;
+            min-width:38px;
+            font-size:15px;
+            opacity:0.85;
+            z-index:2;
+        }
+        .gallery-arrow:hover:not(:disabled){
+            transform:translateY(-50%) scale(1.08);
+        }
+        #galleryPrev{
+            left:4px;
+        }
+        #galleryNext{
+            right:4px;
+        }
+        .gallery-image-wrap{
+            width:100%;
+            max-height:78vh;
+        }
+        .gallery-image-wrap img,
+        .gallery-image-wrap video{
+            max-width:100%;
+            max-height:78vh;
+            width:auto;
+            height:auto;
         }
         .badge{
             flex-direction:column;
@@ -1114,14 +1140,11 @@
             width:44px;
             height:44px;
         }
-        .gallery-modal[data-project="cinema"] .gallery-image-wrap,
-        .gallery-modal[data-project="musique"] .gallery-image-wrap{
-            max-height:45vh;
-        }
-        .gallery-modal[data-project="cinema"] .gallery-image-wrap img,
-        .gallery-modal[data-project="musique"] .gallery-image-wrap img{
-            max-width:55vw;
-            max-height:45vh;
+        .gallery-arrow{
+            width:34px;
+            height:34px;
+            min-width:34px;
+            font-size:14px;
         }
     }
 </style>

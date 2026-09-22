@@ -886,6 +886,13 @@
         object-fit:contain;
     }
 
+    .gallery-image-wrap.rotate img,
+    .gallery-image-wrap.rotate video{
+        transform: rotate(90deg);
+        max-width: 80vh;
+        max-height: 80vw;
+    }
+
     .gallery-counter{
         color:#FAF7FF;
         font-size:13px;
@@ -1674,7 +1681,7 @@
             <button class="gallery-close" onclick="closeGallery()" aria-label="Fermer">&times;</button>
             <div class="gallery-stage">
                 <button class="gallery-arrow" id="galleryPrev" onclick="prevGalleryImage()" aria-label="Image précédente">&#10094;</button>
-                <div class="gallery-image-wrap">
+                <div class="gallery-image-wrap" id="galleryImageWrap">
                     <img id="galleryMainImage" src="" alt="">
                     <video id="galleryMainVideo" controls playsinline style="display:none"></video>
                 </div>
@@ -1785,6 +1792,7 @@
         galleryIndex = 0;
 
         document.getElementById('galleryModal').dataset.project = card.dataset.project || '';
+        document.getElementById('galleryModal').dataset.category = card.dataset.category || '';
 
         renderGallery();
         document.getElementById('galleryModal').classList.add('active');
@@ -1838,6 +1846,9 @@
             imgEl.src = src;
             imgEl.style.display = 'block';
         }
+
+        const category = document.getElementById('galleryModal').dataset.category;
+        document.getElementById('galleryImageWrap').classList.toggle('rotate', category === 'web');
 
         document.getElementById('galleryCounter').textContent = galleryImages.length > 1
             ? `${galleryIndex + 1} / ${galleryImages.length}`
